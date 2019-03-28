@@ -18,6 +18,7 @@
 const path = require('path');
 
 module.exports = {
+    target: "web",
     entry: './webapp/app.bootstrap.js',
     output: {
         filename: 'app.bundle.min.js',
@@ -30,7 +31,11 @@ module.exports = {
     module: {
         rules: [
             // all files with a `.ts` or `.tsx` extension will be handled by `ts-loader`
-            { test: /\.tsx?$/, exclude: /node_modules/, use: 'ts-loader' },
+            {
+                test: /\.tsx?$/,
+                exclude: /node_modules/,
+                use: 'ts-loader'
+            },
             {
                 test: /\.m?js$/,
                 exclude: /(node_modules)/,
