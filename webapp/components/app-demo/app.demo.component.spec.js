@@ -21,7 +21,7 @@ import {
     platformBrowserDynamicTesting
 } from '@angular/platform-browser-dynamic/testing';
 
-import {AppDemo} from './app-demo';
+import {AppDemo} from './app.demo.component';
 import {AppService} from '../../services/app.service';
 
 describe('app-demo component spec', function () {

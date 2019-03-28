@@ -15,49 +15,29 @@
  * limitations under the License.
  */
 
-import {
-    Component,
-    ViewChild
-} from '@angular/core';
-import {AppService} from './services/app.service';
+import {Component} from '@angular/core';
+import {AppService} from '../../services/app.service';
 
-/**
- * App constructor.
- *
- * @param appService            The app service.
- * @constructor
- */
-function App(appService) {
-    this.appService = appService;
-    () => {
-
-    };
-};
-
-App.prototype = {
-    constructor: App,
+@Component({
+    templateUrl: './webapp/components/app-demo/app.demo.component.html'
+})
+export class AppDemo {
+    appService: AppService;
 
     /**
-     * Initialize the component
+     * AppDemo constructor.
+     *
+     * @param AppService            The app service module.
+     * @constructor
      */
-    ngOnInit: function () {
-        var self = this;
-        this.appService.sidenav = this.sidenav; //ViewChild
+    constructor(appService: AppService) {
+        this.appService = appService;
     }
-};
 
-App.annotations = [
-    new Component({
-        selector: 'app',
-        templateUrl: './webapp/app.html',
-        queries: {
-            sidenav: new ViewChild('sidenav')
-        }
-    })
-];
-
-App.parameters = [
-    AppService
-];
-
-export {App};
+    /**
+     * Respond after Angular checks the component's views and child views
+     */
+    ngAfterViewChecked() {
+        this.appService.inProgress = false;
+    }
+}

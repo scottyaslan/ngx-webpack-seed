@@ -18,7 +18,7 @@
 const path = require('path');
 
 module.exports = {
-    entry: './webapp/app-bootstrap.js',
+    entry: './webapp/app.bootstrap.js',
     output: {
         filename: 'app.bundle.min.js',
         path: path.resolve(__dirname, 'webapp')

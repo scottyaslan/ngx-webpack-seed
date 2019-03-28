@@ -21,8 +21,7 @@ import {
     platformBrowserDynamicTesting
 } from '@angular/platform-browser-dynamic/testing';
 
-import {AppDemoDialog} from './app-demo-dialog';
-import {AppService} from '../../../../services/app.service';
+import {AppDemoDialog} from './app.demo-dialog.component';
 import {MatDialogModule} from '@angular/material';
 
 describe('app-demo-dialog component spec', function () {

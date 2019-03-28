@@ -16,7 +16,7 @@
  */
 
 import { RouterModule } from '@angular/router';
-import { AppDemo } from './components/app-demo/app-demo';
+import { AppDemo } from './components/app-demo/app.demo.component';
 
 var AppRoutes = new RouterModule.forRoot([{
     path: '**',

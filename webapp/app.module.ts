@@ -66,10 +66,10 @@ import {
     CovalentStepsModule
 } from '@covalent/core';
 
-import {App} from './app';
+import {App} from './app.component';
 import {AppRoutes} from './app.routes';
-import {AppDemo} from './components/app-demo/app-demo';
-import {AppDemoDialog} from './components/app-demo/dialogs/demo/app-demo-dialog';
+import {AppDemo} from './components/app-demo/app.demo.component';
+import {AppDemoDialog} from './components/app-demo/dialogs/demo/app.demo-dialog.component';
 import {AppService} from './services/app.service';
 
 function AppModule() {

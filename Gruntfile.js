@@ -59,7 +59,7 @@ module.exports = function (grunt) {
             },
             minifyWebUi: {
                 files: [{
-                    './webapp/css/app-demo.min.css': ['./webapp/theming/app-demo.scss']
+                    './webapp/css/app.min.css': ['./webapp/theming/app.scss']
                 }]
             }
         },

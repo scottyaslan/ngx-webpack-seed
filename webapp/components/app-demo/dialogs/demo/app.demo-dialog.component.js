@@ -50,7 +50,7 @@ AppDemoDialog.prototype = {
 
 AppDemoDialog.annotations = [
     new Component({
-        templateUrl: './webapp/components/app-demo/dialogs/demo/app-demo-dialog.html'
+        templateUrl: './webapp/components/app-demo/dialogs/demo/app.demo-dialog.component.html'
     })
 ];
 
