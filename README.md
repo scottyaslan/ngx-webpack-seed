@@ -1,9 +1,16 @@
 # ngx-seed
 
-The ngx-seed is an seed project for Angular applications written in ES5. This project comes complete with SASS compliation and minification, SystemJS build tools for bundling the application JS into a single file, Grunt tasks for minification and compression of the final application JS bundles, npm for dependency management and build scripts, themeing of preinstalled design systems (Angular Material, Teradata Covalent), Internationalization (i18n), and JS unit testing and reporting with Karma, Jasmine, and Istanbul.
+The ngx-seed is an seed project for Angular applications written in ES6 and/or TypeScript. This project comes complete with SASS compliation and minification, Webpack build tools for bundling the application JS into a single file, Grunt tasks for minification and compression of the final application JS bundles, npm for dependency management and build scripts, themeing of preinstalled design systems (Angular Material, Teradata Covalent), Internationalization (i18n), and JS unit testing and reporting with Karma, Jasmine, and Istanbul.
+
+#### Developing
+Developers can perform code changes and automatically build this project using **npm** from the root directory via:
+
+```bash
+npm run watch 
+```
 
 #### Building
-Developers can perform code changes and easily build this project using **npm** from the root nifi-fds directory via:
+Full builds are also available using **npm** from the root directory via:
 
 ```bash
 npm run clean:install
@@ -15,23 +22,13 @@ or to build without running unit tests run:
 npm run clean:install:skipTests
 ```
 
-Developers can speed up development time by skipping the re-installation of all node_modules:
+NOTE: Full builds for this seed project assume a 2 stage build and complete the first stage for you. In the first stage all of the assests for the project are copied into the `target/frontend-working-diorectory`, tested, and bundled/minified/obfuscated. It is up to the consumer of this project to include the index.html and optimized assests into any deployable archive.
+
+#### Running full builds locally
+Once built you can start the application from the `target/frontend-working-directory` directory via:
 
 ```bash
-npm run dev:install
-```
-
-or to skip re-installation of node_modules as well as building without running unit tests:
-
-```bash
-npm run dev:install:skipTests
-```
-
-#### Running locally
-Once built you can start the application from the target directory via:
-
-```bash
-cd target
+cd target/frontend-working-directory
 npm start
 ```
 

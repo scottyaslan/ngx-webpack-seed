@@ -14,12 +14,44 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+var webpackConfig = require('./webpack.config.js');
+var url = require('url');
+var proxy = require('proxy-middleware');
+
+var proxyOptions = url.parse('http://localhost:10080/efm/api');
+proxyOptions.route = '/api';
+proxyOptions.headers = {
+    'X-Forwarded-Host': 'localhost',
+    'X-Forwarded-Port': '8080'
+};
 
 module.exports = function (grunt) {
     // load all grunt tasks matching the ['grunt-*', '@*/grunt-*'] patterns
     require('load-grunt-tasks')(grunt);
 
     grunt.initConfig({
+        watch: {
+            theme: {
+                files: [
+                    'webapp/theming/**/*.scss'
+                ],
+                tasks: ['compile-web-ui-styles']
+            },
+            webapp: {
+                files: [
+                    'webapp/**/*.js',
+                    'webapp/**/*.html'
+                ],
+                tasks: ['dev-bundle-web-ui']
+            }
+        },
+        webpack: {
+            prod: Object.assign({mode: 'production'}, webpackConfig),
+            dev: Object.assign({
+                mode: 'development',
+                devtool: "inline-source-map"
+            }, webpackConfig)
+        },
         sass: {
             options: {
                 outputStyle: 'compressed',
@@ -27,51 +59,36 @@ module.exports = function (grunt) {
             },
             minifyWebUi: {
                 files: [{
-                    './app/css/app-demo.min.css': ['./app/theming/app-demo.scss']
+                    './webapp/css/app-demo.min.css': ['./webapp/theming/app-demo.scss']
                 }]
             }
         },
-        systemjs: {
+        browserSync: {
+            bsFiles: {
+                src: [
+                    // JS files
+                    'webapp/**/*.js',
+
+                    // CSS files
+                    'webapp/css/*.css',
+
+                    // HTML files
+                    'webapp/**/*.html',
+                    './*.html'
+                ]
+            },
             options: {
-                sfx: true,
-                minify: true,
-                sourceMaps: true,
-                build: {
-                    lowResSourceMaps: true
+                port: 8080,
+                watchTask: true,
+                server: {
+                    baseDir: './',
+                    middleware: [proxy(proxyOptions)]
                 }
-            },
-            bundleWebUi: {
-                options: {
-                    configFile: "./app/systemjs.builder.config.js"
-                },
-                files: [{
-                    "src": "./app/app-bootstrap.js",
-                    "dest": "./app/app.bundle.min.js"
-                }]
-            }
-        },
-        compress: {
-            options: {
-                mode: 'gzip'
-            },
-            webUi: {
-                files: [{
-                    expand: true,
-                    src: ['./app/app.bundle.min.js'],
-                    dest: './',
-                    ext: '.bundle.min.js.gz'
-                }]
-            },
-            webUiStyles: {
-                files: [{
-                    expand: true,
-                    src: ['./app/css/app-demo.min.css'],
-                    dest: './',
-                    ext: '.min.css.gz'
-                }]
             }
         }
     });
-    grunt.registerTask('compile-web-ui-styles', ['sass:minifyWebUi', 'compress:webUiStyles']);
-    grunt.registerTask('bundle-web-ui', ['systemjs:bundleWebUi', 'compress:webUi']);
+    grunt.registerTask('compile-web-ui-styles', ['sass:minifyWebUi']);
+    grunt.registerTask('dev-bundle-web-ui', ['webpack:dev']);
+    grunt.registerTask('prod-bundle-web-ui', ['webpack:prod']);
+    grunt.registerTask('default', ['compile-web-ui-styles', 'dev-bundle-web-ui', 'browserSync', 'watch']);
 };

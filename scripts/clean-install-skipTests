@@ -18,22 +18,20 @@ set -e
 # build
 rm -rf ./target
 mkdir target
-cp -R ./src/app/ ./target/app
-cp -R ./src/locale/ ./target/locale
-cp package.json ./target/package.json
-cp package-lock.json ./target/package-lock.json
-cp README.md ./target/README.md
-cp LICENSE ./target/LICENSE
-cp ./src/app/index.html ./target/index.html
-cp ./test/karma.conf.js ./target/karma.conf.js
-cp ./test/karma-test-shim.js ./target/karma-test-shim.js
-cp Gruntfile.js ./target/Gruntfile.js
-cd ./target
+mkdir target/frontend-working-driectory
+cp -R ./webapp/ ./target/frontend-working-driectory/webapp
+cp -R ./locale/ ./target/frontend-working-driectory/locale
+cp package.json ./target/frontend-working-driectory/package.json
+cp package-lock.json ./target/frontend-working-driectory/package-lock.json
+cp README.md ./target/frontend-working-driectory/README.md
+cp LICENSE ./target/frontend-working-driectory/LICENSE
+cp ./index.html ./target/frontend-working-driectory/index.html
+cp ./tsconfig.json ./target/frontend-working-driectory/tsconfig.json
+cp ./webpack.config.js ./target/frontend-working-driectory/webpack.config.js
+cp ./karma.conf.js ./target/frontend-working-driectory/karma.conf.js
+cp ./karma-test-context.js ./target/frontend-working-driectory/karma-test-context.js
+cp Gruntfile.js ./target/frontend-working-driectory/Gruntfile.js
+cd ./target/frontend-working-driectory
 npm install
-
-# build demo theme
-npm run build:app
-npm run bundle:app
-
-# clean up
-rm -rf ./platform
+npm run build:theme
+npm run build:webapp:prod
