@@ -123,6 +123,22 @@ module.exports = function (config) {
                             /target/
                         ],
                         use: 'ts-loader'
+                    },
+                    {
+                        test: /\.m?js$/,
+                        exclude: /(node_modules)/,
+                        use: {
+                            loader: 'babel-loader',
+                            options: {
+                                presets: ['@babel/preset-env']
+                            }
+                        }
+                    },
+                    {
+                        test: /\.(html)$/,
+                        use: {
+                          loader: 'html-loader'
+                        }
                     }
                 ]
             },
