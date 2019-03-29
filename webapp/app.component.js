@@ -20,6 +20,7 @@ import {
     ViewChild
 } from '@angular/core';
 import {AppService} from './services/app.service';
+import {FdsDialogService} from '@nifi-fds/core/dialogs/services/dialog.service'
 
 /**
  * App constructor.
@@ -27,8 +28,9 @@ import {AppService} from './services/app.service';
  * @param appService            The app service.
  * @constructor
  */
-function App(appService) {
+function App(appService, dialogService) {
     this.appService = appService;
+    this.dialogService = dialogService;
 };
 
 App.prototype = {
@@ -40,6 +42,13 @@ App.prototype = {
     ngOnInit: function () {
         var self = this;
         this.appService.sidenav = this.sidenav; //ViewChild
+    },
+
+    sayHello: function() {
+        this.dialogService.openConfirm({
+            message: 'Hello, World!',
+            acceptButton: 'Ok'
+        });
     }
 };
 
@@ -54,7 +63,8 @@ App.annotations = [
 ];
 
 App.parameters = [
-    AppService
+    AppService,
+    FdsDialogService
 ];
 
 export {App};

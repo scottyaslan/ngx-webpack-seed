@@ -72,6 +72,8 @@ import {AppDemo} from './components/app-demo/app.demo.component';
 import {AppDemoDialog} from './components/app-demo/dialogs/demo/app.demo-dialog.component';
 import {AppService} from './services/app.service';
 
+import * as FlowDesignSystemModule from '@nifi-fds/core/flow-design-system.module';
+
 function AppModule() {
 };
 
@@ -82,6 +84,7 @@ AppModule.prototype = {
 AppModule.annotations = [
     new NgModule({
         imports: [
+            FlowDesignSystemModule,
             FlexLayoutModule,
             BrowserAnimationsModule,
             CommonModule,

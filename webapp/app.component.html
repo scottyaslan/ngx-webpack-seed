@@ -24,6 +24,7 @@ limitations under the License.
             <div fxFlex="1 1 auto" class="pad-left-xl">
                 <span i18n="@@introductionHeader">{{appService.title}}</span>
             </div>
+            <button mat-button color="primary" (click)="sayHello()">Say Hello</button>
         </mat-toolbar>
         <div id="app-perspectives-container">
             <router-outlet></router-outlet>

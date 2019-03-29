@@ -29,7 +29,7 @@ import {AppRoutes} from './app.routes';
 import {App} from './app.component';
 import {AppDemo} from './components/app-demo/app.demo.component';
 import {AppService} from './services/app.service';
-
+import * as FlowDesignSystemModule from '@nifi-fds/core/flow-design-system.module';
 
 describe('app component spec', function () {
     var comp;
@@ -48,7 +48,8 @@ describe('app component spec', function () {
                 MatSidenavModule,
                 MatToolbarModule,
                 BrowserAnimationsModule,
-                AppRoutes
+                AppRoutes,
+                FlowDesignSystemModule
             ],
             declarations: [
                 App,
