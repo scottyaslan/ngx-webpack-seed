@@ -22,11 +22,8 @@ import {
 } from '@angular/material';
 
 /**
- * NfRegistryEditBucketPolicy constructor.
+ * AppDemoDialog constructor.
  *
- * @param nfRegistryApi         The api service.
- * @param nfRegistryService     The nf-registry.service module.
- * @param activatedRoute        The angular route module.
  * @param matDialogRef          The angular material dialog ref.
  * @param data                  The data passed into this component.
  * @constructor
@@ -50,7 +47,7 @@ AppDemoDialog.prototype = {
 
 AppDemoDialog.annotations = [
     new Component({
-        templateUrl: './webapp/components/app-demo/dialogs/demo/app.demo-dialog.component.html'
+        template: require('./app.demo-dialog.component.html')
     })
 ];
 

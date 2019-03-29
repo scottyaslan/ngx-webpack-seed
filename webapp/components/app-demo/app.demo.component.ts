@@ -19,7 +19,7 @@ import {Component} from '@angular/core';
 import {AppService} from '../../services/app.service';
 
 @Component({
-    templateUrl: './webapp/components/app-demo/app.demo.component.html'
+    template: require('./app.demo.component.html')
 })
 export class AppDemo {
     appService: AppService;
