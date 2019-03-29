@@ -28,7 +28,7 @@ describe('app-demo component spec', function () {
     var comp;
     var fixture;
 
-    beforeEach(async function () {
+    beforeEach(async function (done) {
         TestBed.resetTestEnvironment();
 
         TestBed.initTestEnvironment(
@@ -42,10 +42,14 @@ describe('app-demo component spec', function () {
             providers: [
                 AppService
             ]
-        }).compileComponents().then(function () {
+        })
+        .compileComponents()
+        .then(function () {
             fixture = TestBed.createComponent(AppDemo);
             fixture.detectChanges();
             comp = fixture.componentInstance;
+
+            done();
         });
     });
 

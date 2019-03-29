@@ -22,13 +22,16 @@ import {
 } from '@angular/platform-browser-dynamic/testing';
 
 import {AppDemoDialog} from './app.demo-dialog.component';
-import {MatDialogModule} from '@angular/material';
+import {
+    MatDialogRef,
+    MAT_DIALOG_DATA
+} from '@angular/material';
 
 describe('app-demo-dialog component spec', function () {
     var comp;
     var fixture;
 
-    beforeEach(async function () {
+    beforeEach(async function (done) {
         TestBed.resetTestEnvironment();
 
         TestBed.initTestEnvironment(
@@ -36,16 +39,21 @@ describe('app-demo-dialog component spec', function () {
             platformBrowserDynamicTesting());
 
         TestBed.configureTestingModule({
-            imports: [
-                MatDialogModule
-            ],
             declarations: [
                 AppDemoDialog
+            ],
+            providers: [
+                { provide: MatDialogRef, useValue: { close: () => {} } },
+                { provide: MAT_DIALOG_DATA, useValue: [] }
             ]
-        }).compileComponents().then(function () {
+        })
+        .compileComponents()
+        .then(function () {
             fixture = TestBed.createComponent(AppDemoDialog);
             fixture.detectChanges();
             comp = fixture.componentInstance;
+
+            done();
         });
     });
 
