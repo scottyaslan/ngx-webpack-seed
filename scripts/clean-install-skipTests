@@ -31,6 +31,7 @@ cp ./webpack.config.js ./target/frontend-working-driectory/webpack.config.js
 cp ./karma.conf.js ./target/frontend-working-driectory/karma.conf.js
 cp ./karma-test-context.js ./target/frontend-working-driectory/karma-test-context.js
 cp Gruntfile.js ./target/frontend-working-driectory/Gruntfile.js
+cp ./systemjs-text-to-html-loader.js ./target/frontend-working-driectory/systemjs-text-to-html-loader.js
 cd ./target/frontend-working-driectory
 npm install
 npm run build:theme
