@@ -55,7 +55,7 @@ App.prototype = {
 App.annotations = [
     new Component({
         selector: 'app',
-        template: require('./app.component.html'),
+        templateUrl: './app.component.html',
         queries: {
             sidenav: new ViewChild('sidenav')
         }
