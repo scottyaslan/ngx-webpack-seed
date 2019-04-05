@@ -15,33 +15,29 @@
  * limitations under the License.
  */
 
-const path = require('path');
 const webpack = require('webpack');
+const path = require('path');
+const webpackAlias = require('./webpack.alias');
 
 module.exports = {
-    target: "web",
-    entry: './webapp/app.bootstrap.js',
+    mode: 'development',
+
+    target: 'web',
+
+    devtool: 'eval-source-map',
+
+    entry: path.resolve(__dirname, 'webapp/app.bootstrap.js'),
+
     output: {
         filename: 'app.bundle.min.js',
-        path: path.resolve(__dirname, 'webapp')
+        path: path.resolve(__dirname, '')
     },
+
     resolve: {
-        // Add `.ts` and `.tsx` as a resolvable extension.
-        extensions: [".ts", ".tsx", ".js"],
-        alias: {
-            // Aliases needed to enable @nifi-fds CommonJs modules load properly
-            '@flow-design-system/dialogs': '@nifi-fds/core/dialogs/fds-dialogs.module',
-            '@flow-design-system/confirm-dialog-component': '@nifi-fds/core/dialogs/confirm-dialog/confirm-dialog.component',
-            '@flow-design-system/core': '@nifi-fds/core/flow-design-system.module',
-            '@flow-design-system/dialog-component': '@nifi-fds/core/dialogs/fds-dialog.component',
-            '@flow-design-system/dialog-service': '@nifi-fds/core/dialogs/services/dialog.service',
-            '@flow-design-system/snackbars': '@nifi-fds/core/snackbars/fds-snackbars.module',
-            '@flow-design-system/snackbar-component': '@nifi-fds/core/snackbars/fds-snackbar.component',
-            '@flow-design-system/snackbar-service': '@nifi-fds/core/snackbars/services/snackbar.service',
-            '@flow-design-system/coaster-component': '@nifi-fds/core/snackbars/coaster/coaster.component',
-            '@flow-design-system/common/storage-service': '@nifi-fds/core/common/services/fds-storage.service'
-        }
+        extensions: ['.ts', '.tsx', '.js'],
+        alias: webpackAlias
     },
+
     node: {
         console: true
     },
@@ -53,7 +49,7 @@ module.exports = {
                 include: [
                     path.resolve(__dirname, 'webapp')
                 ],
-                use: 'ts-loader'
+                use: ['cache-loader', 'ts-loader']
             },
             {
                 /*
@@ -65,33 +61,67 @@ module.exports = {
                 *     require('./confirm-dialog.component.html')
                 */
                 test: /\.js$/,
-                loader: path.resolve(__dirname, 'systemjs-text-to-html-loader'),
+                loader: ['cache-loader', path.resolve(__dirname, 'systemjs-text-to-html-loader')],
                 include: [
                     path.resolve(__dirname, 'node_modules/@nifi-fds/core')
                 ],
             },
             {
+                /*
+                * Send all js files from webapp/ and platform/ through a custom loader that replaces its usage of  templateUrl or styleUrl properties like:
+                *     templateUrl: './confirm-dialog.component.html'
+                *
+                * with NodeJS `require` calls for loading of html files that are subsequently loaded via webpack's html-loader like:
+                *     template: require('./confirm-dialog.component.html')
+                */
+                test: /\.js$/,
+                loader: ['cache-loader', path.resolve(__dirname, 'angular-url-loader')],
+                include: [
+                    path.resolve(__dirname, 'webapp'),
+                    path.resolve(__dirname, 'platform')
+                ]
+            },
+            {
+                /*
+                * Send all ts files from webapp/ and platform/ through a custom loader that replaces its usage of  templateUrl or styleUrl properties like:
+                *     templateUrl: './confirm-dialog.component.html'
+                *
+                * with NodeJS `require` calls for loading of html files that are subsequently loaded via webpack's html-loader like:
+                *     template: require('./confirm-dialog.component.html')
+                */
+                test: /\.tsx?$/,
+                loader: ['cache-loader', path.resolve(__dirname, 'angular-url-loader')],
+                include: [
+                    path.resolve(__dirname, 'webapp'),
+                    path.resolve(__dirname, 'platform')
+                ]
+            },
+            {
                 test: /\.m?js$/,
                 exclude: /(node_modules)/,
-                use: {
-                    loader: 'babel-loader',
-                    options: {
-                        presets: ['@babel/preset-env']
+                use: [
+                    {
+                        loader: 'cache-loader'
+                    },
+                    {
+                        loader: 'babel-loader',
+                        options: {
+                            presets: ['@babel/preset-env']
+                        }
                     }
-                }
+                ]
             },
             {
                 test: /\.(html)$/,
-                use: {
-                  loader: 'html-loader'
-                }
+                use: ['cache-loader', 'html-loader']
             }
         ]
     },
     plugins: [
         // @nifi-fds/core has a few places it assumes jquery ($) is globally available. Make that so...
         new webpack.ProvidePlugin({
-            '$': 'jquery'
+            '$': 'jquery',
+            jQuery: 'jquery'
         })
     ]
 };

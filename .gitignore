@@ -10,3 +10,6 @@ npm-debug.log*
 *.iws
 *~
 coverage/
+
+# Webpack cache-loader directory
+.cache-loader/

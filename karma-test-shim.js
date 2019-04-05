@@ -15,29 +15,15 @@
  * limitations under the License.
  */
 
-import {Component} from '@angular/core';
-import {AppService} from '../../services/app.service';
+require("babel-polyfill");
 
-@Component({
-    templateUrl: './app.demo.component.html'
-})
-export class AppDemo {
-    appService: AppService;
+// /*global jasmine, __karma__, window*/
+Error.stackTraceLimit = 0; // "No stacktrace"" is usually best for app testing.
 
-    /**
-     * AppDemo constructor.
-     *
-     * @param AppService            The app service module.
-     * @constructor
-     */
-    constructor(appService: AppService) {
-        this.appService = appService;
-    }
+// Uncomment to get full stacktrace output. Sometimes helpful, usually not.
+// Error.stackTraceLimit = Infinity; //
 
-    /**
-     * Respond after Angular checks the component's views and child views
-     */
-    ngAfterViewChecked() {
-        this.appService.inProgress = false;
-    }
-}
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 1000;
+
+var webappContext = require.context('./webapp', true, /spec\.js$/);
+webappContext.keys().forEach(webappContext);

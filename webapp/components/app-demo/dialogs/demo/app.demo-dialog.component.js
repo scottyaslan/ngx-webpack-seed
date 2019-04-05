@@ -47,7 +47,7 @@ AppDemoDialog.prototype = {
 
 AppDemoDialog.annotations = [
     new Component({
-        template: require('./app.demo-dialog.component.html')
+        templateUrl: './app.demo-dialog.component.html'
     })
 ];
 

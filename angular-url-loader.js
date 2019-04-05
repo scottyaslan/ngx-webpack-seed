@@ -15,15 +15,17 @@
  * limitations under the License.
  */
 
-require("babel-polyfill");
+/**
+ * Removes inline templateUrl and styleUrl properties and replaces them with NodeJS `require` syntax
+ *
+ *   templateUrl: './some-module.html'  ->  template: require('./some-module.html')
+ */
+let templateUrlRegex = /templateUrl\s*:(\s*['"`](.*?)['"`]\s*)/gm;
+module.exports = function (source) {
+    source = source
+        .replace(templateUrlRegex, function(match, quote, url){
+            return 'template: require(\'' + url + '\')';
+        });
 
-// /*global jasmine, __karma__, window*/
-Error.stackTraceLimit = 0; // "No stacktrace"" is usually best for app testing.
-
-// Uncomment to get full stacktrace output. Sometimes helpful, usually not.
-// Error.stackTraceLimit = Infinity; //
-
-jasmine.DEFAULT_TIMEOUT_INTERVAL = 1000;
-
-var context = require.context('./webapp', true, /spec\.js$/);
-context.keys().forEach(context);
+    return source;
+};
