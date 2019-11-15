@@ -18,9 +18,10 @@
 import { RouterModule } from '@angular/router';
 import { AppDemo } from './components/app-demo/app.demo.component';
 
-var AppRoutes = new RouterModule.forRoot([{
+/*eslint new-cap:0*/
+const AppRoutes = new RouterModule.forRoot([{
     path: '**',
     component: AppDemo
-}]);
+}], {useHash: true});
 
 export { AppRoutes };

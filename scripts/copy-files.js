@@ -15,29 +15,23 @@
  * limitations under the License.
  */
 
-import { AfterViewChecked, Component } from '@angular/core';
-import { AppService } from 'services/app.service';
+const fse = require('fs-extra');
+const copyfiles = require('copyfiles');
 
-@Component({
-    templateUrl: './app.demo.component.html'
-})
-export class AppDemo implements AfterViewChecked {
-    appService: AppService;
+fse.copySync('./webapp/', './target/frontend-working-directory/webapp');
 
-    /**
-     * AppDemo constructor.
-     *
-     * @param appService            The app service module.
-     * @constructor
-     */
-    constructor(appService: AppService) {
-        this.appService = appService;
-    }
+const paths = [
+    'package.json',
+    'package-lock.json',
+    'README.md',
+    'LICENSE',
+    'NOTICE',
+    './webpack.*.js',
+    'karma.conf.js',
+    'karma-test-shim.js',
+    'angular-url-loader.js',
+    '.eslint*',
+    './target/frontend-working-directory' // destination
+];
 
-    /**
-     * Respond after Angular checks the component's views and child views
-     */
-    ngAfterViewChecked() {
-        this.appService.inProgress = false;
-    }
-}
+copyfiles(paths, { all: true }, () => { console.log('Copy files complete.'); });

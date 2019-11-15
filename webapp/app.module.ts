@@ -15,136 +15,44 @@
  * limitations under the License.
  */
 
-import {NgModule} from '@angular/core';
-import {FlexLayoutModule} from '@angular/flex-layout';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {
-    MatAutocompleteModule,
-    MatButtonModule,
-    MatButtonToggleModule,
-    MatCardModule,
-    MatCheckboxModule,
-    MatChipsModule,
-    MatDatepickerModule,
-    MatDialogModule,
-    MatExpansionModule,
-    MatFormFieldModule,
-    MatGridListModule,
-    MatIconModule,
-    MatInputModule,
-    MatListModule,
-    MatMenuModule,
-    MatProgressBarModule,
-    MatProgressSpinnerModule,
-    MatRadioModule,
-    MatSelectModule,
-    MatSlideToggleModule,
-    MatSliderModule,
-    MatSidenavModule,
-    MatSnackBarModule,
-    MatStepperModule,
-    MatTabsModule,
-    MatToolbarModule,
-    MatTooltipModule,
-    MatPaginatorModule,
-    MatSortModule,
-    MatTableModule
-} from '@angular/material';
-import {CommonModule} from '@angular/common';
-import {BrowserModule} from '@angular/platform-browser';
-import {
-    CovalentCommonModule,
-    CovalentChipsModule,
-    CovalentDataTableModule,
-    CovalentDialogsModule,
-    CovalentExpansionPanelModule,
-    CovalentLoadingModule,
-    CovalentMenuModule,
-    CovalentNotificationsModule,
-    CovalentPagingModule,
-    CovalentSearchModule,
-    CovalentStepsModule
-} from '@covalent/core';
+import { NgModule } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonModule, MatSidenavModule, MatToolbarModule } from '@angular/material';
+import { CommonModule } from '@angular/common';
+import { BrowserModule } from '@angular/platform-browser';
+import { AppDemo } from 'components/app-demo/app.demo.component';
+import { AppService } from 'services/app.service';
+import { RouterModule } from '@angular/router';
+import { FdsCoreModule } from '@nifi-fds/core';
+import { AppDemoDialog } from 'components/app-demo/dialogs/demo/app.demo-dialog.component';
+import { AppRoutes } from './app.routes';
+import { App } from './app.component';
 
-import {App} from './app.component';
-import {AppRoutes} from './app.routes';
-import {AppDemo} from './components/app-demo/app.demo.component';
-import {AppDemoDialog} from './components/app-demo/dialogs/demo/app.demo-dialog.component';
-import {AppService} from './services/app.service';
-
-import * as FlowDesignSystemModule from '@nifi-fds/core/flow-design-system.module';
-
-function AppModule() {
-};
-
-AppModule.prototype = {
-    constructor: AppModule
-};
-
-AppModule.annotations = [
-    new NgModule({
-        imports: [
-            FlowDesignSystemModule,
-            FlexLayoutModule,
-            BrowserAnimationsModule,
-            CommonModule,
-            BrowserModule,
-            MatAutocompleteModule,
-            MatButtonModule,
-            MatButtonToggleModule,
-            MatCardModule,
-            MatCheckboxModule,
-            MatChipsModule,
-            MatDatepickerModule,
-            MatDialogModule,
-            MatExpansionModule,
-            MatFormFieldModule,
-            MatGridListModule,
-            MatIconModule,
-            MatInputModule,
-            MatListModule,
-            MatMenuModule,
-            MatProgressBarModule,
-            MatProgressSpinnerModule,
-            MatRadioModule,
-            MatSelectModule,
-            MatSlideToggleModule,
-            MatSliderModule,
-            MatSidenavModule,
-            MatSnackBarModule,
-            MatStepperModule,
-            MatTabsModule,
-            MatToolbarModule,
-            MatTooltipModule,
-            MatPaginatorModule,
-            MatSortModule,
-            MatTableModule,
-            CovalentCommonModule,
-            CovalentChipsModule,
-            CovalentDataTableModule,
-            CovalentDialogsModule,
-            CovalentExpansionPanelModule,
-            CovalentLoadingModule,
-            CovalentMenuModule,
-            CovalentNotificationsModule,
-            CovalentPagingModule,
-            CovalentSearchModule,
-            CovalentStepsModule,
-            AppRoutes
-        ],
-        declarations: [
-            App,
-            AppDemo,
-            AppDemoDialog
-        ],
-        entryComponents: [
-            AppDemoDialog
-        ],
-        providers: [
-            AppService
-        ],
-        bootstrap: [App]
-    })
-];
-
-export { AppModule };
+@NgModule({
+    imports: [
+        FdsCoreModule,
+        FlexLayoutModule,
+        BrowserAnimationsModule,
+        CommonModule,
+        BrowserModule,
+        RouterModule,
+        MatButtonModule,
+        MatSidenavModule,
+        MatToolbarModule,
+        AppRoutes
+    ],
+    declarations: [
+        App,
+        AppDemo,
+        AppDemoDialog
+    ],
+    entryComponents: [
+        AppDemoDialog
+    ],
+    providers: [
+        AppService
+    ],
+    bootstrap: [App]
+})
+export class AppModule {}

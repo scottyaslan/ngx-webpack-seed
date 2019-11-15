@@ -15,45 +15,22 @@
  * limitations under the License.
  */
 
-import {Component} from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import {
     MatDialogRef,
     MAT_DIALOG_DATA
 } from '@angular/material';
 
-/**
- * AppDemoDialog constructor.
- *
- * @param matDialogRef          The angular material dialog ref.
- * @param data                  The data passed into this component.
- * @constructor
- */
-function AppDemoDialog(matDialogRef, data) {
-    // Services
-    this.dialogRef = matDialogRef;
-    this.data = data;
-};
-
-AppDemoDialog.prototype = {
-    constructor: AppDemoDialog,
+@Component({
+    templateUrl: './app.demo-dialog.component.html'
+})
+export class AppDemoDialog {
+    constructor(private dialogRef: MatDialogRef<AppDemoDialog>, @Inject(MAT_DIALOG_DATA) private data: any) {}
 
     /**
      * Cancel creation of a new policy and close dialog.
      */
-    cancel: function () {
+    cancel() {
         this.dialogRef.close();
     }
-};
-
-AppDemoDialog.annotations = [
-    new Component({
-        templateUrl: './app.demo-dialog.component.html'
-    })
-];
-
-AppDemoDialog.parameters = [
-    MatDialogRef,
-    MAT_DIALOG_DATA
-];
-
-export {AppDemoDialog};
+}

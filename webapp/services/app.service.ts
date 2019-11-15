@@ -15,29 +15,13 @@
  * limitations under the License.
  */
 
-import { AfterViewChecked, Component } from '@angular/core';
-import { AppService } from 'services/app.service';
+import { Injectable } from '@angular/core';
+import { MatSidenav } from '@angular/material/sidenav';
 
-@Component({
-    templateUrl: './app.demo.component.html'
-})
-export class AppDemo implements AfterViewChecked {
-    appService: AppService;
-
-    /**
-     * AppDemo constructor.
-     *
-     * @param appService            The app service module.
-     * @constructor
-     */
-    constructor(appService: AppService) {
-        this.appService = appService;
-    }
-
-    /**
-     * Respond after Angular checks the component's views and child views
-     */
-    ngAfterViewChecked() {
-        this.appService.inProgress = false;
-    }
+@Injectable()
+export class AppService {
+    title: string = 'Hello World';
+    inProgress: boolean = true;
+    perspective: string = '';
+    sidenav: MatSidenav;
 }

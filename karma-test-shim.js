@@ -25,5 +25,5 @@ Error.stackTraceLimit = 0; // "No stacktrace"" is usually best for app testing.
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 1000;
 
-var webappContext = require.context('./webapp', true, /spec\.js$/);
+var webappContext = require.context('./webapp', true, /spec\.js|ts$/);
 webappContext.keys().forEach(webappContext);
