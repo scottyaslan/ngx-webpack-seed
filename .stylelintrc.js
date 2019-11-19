@@ -15,29 +15,17 @@
  * limitations under the License.
  */
 
-import { AfterViewChecked, Component } from '@angular/core';
-import { AppService } from 'services/app.service';
-
-@Component({
-    templateUrl: './app.demo.component.html'
-})
-export class AppDemo implements AfterViewChecked {
-    appService: AppService;
-
-    /**
-     * AppDemo constructor.
-     *
-     * @param appService            The app service module.
-     * @constructor
-     */
-    constructor(appService: AppService) {
-        this.appService = appService;
+module.exports = {
+    "extends": "stylelint-config-standard",
+    "rules": {
+        "indentation": null,
+        "at-rule-no-unknown": [true, {
+            "ignoreAtRules": ["/include/", "/mixin/", "/function/", "/return/"]
+        }],
+        "declaration-empty-line-before": null,
+        "selector-type-no-unknown": [true, {
+            "ignoreTypes": ["/mat-/", "/flow-designer-/", "/fds-/", "/app-/", "/td-/"]
+        }],
+        "font-family-no-missing-generic-family-keyword": null
     }
-
-    /**
-     * Respond after Angular checks the component's views and child views
-     */
-    ngAfterViewChecked() {
-        this.appService.inProgress = false;
-    }
-}
+};

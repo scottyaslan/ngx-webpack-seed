@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-const webpackConfig = require('./webpack.config');
+const webpackConfig = require('./webpack.karma');
 const path = require('path');
 
 delete webpackConfig.entry;
@@ -27,9 +27,10 @@ module.exports = function (config) {
         browserDisconnectTimeout: 180000, // default 2000
         browserDisconnectTolerance: 3, // default 0
         captureTimeout: 180000,
-        frameworks: ['jasmine'],
+        frameworks: ['parallel', 'jasmine'],
 
         plugins: [
+            'karma-parallel',
             'karma-jasmine',
             'karma-chrome-launcher',
             'karma-jasmine-html-reporter',
@@ -38,6 +39,16 @@ module.exports = function (config) {
             'karma-webpack',
             'karma-coverage-istanbul-reporter'
         ],
+
+        parallelOptions: {
+            // number of cores to shard spec files to when running tests, default to 1. Can override via CLI option `--parallelOptions.executors=4`
+            executors: 1,
+            shardStrategy: 'round-robin'
+
+            // NOTE: defined reporters (spec, coverage-istanbul) can cause connection failures when running karma-parallel tests from IDE.
+            // If this is the case, override this setting via the CLI option `--parallelOptions.aggregatedReporterTest=null` to disable aggregate reporting.
+            // aggregatedReporterTest: null
+        },
 
         files: [
             // Zone JS
@@ -61,8 +72,8 @@ module.exports = function (config) {
         exclude: [],
 
         preprocessors: {
-            'karma-test-shim.js': ['webpack'],
-            'webapp/**/!(*spec|*mock|*stub|*config|*extras).js': ['webpack']
+            'webapp/**/*.(js|ts)': ['webpack'],
+            'karma-test-shim.js': ['webpack']
         },
 
         // Try Websocket for a faster transmission first. Fallback to polling if necessary.
@@ -71,7 +82,7 @@ module.exports = function (config) {
         reporters: ['spec', 'coverage-istanbul'],
 
         coverageIstanbulReporter: {
-            reports: [ 'html', 'text-summary' ],
+            reports: ['html', 'lcov', 'text-summary'],
 
             dir: path.join(__dirname, 'coverage'),
 
@@ -85,30 +96,16 @@ module.exports = function (config) {
         },
 
         specReporter: {
-            failFast: false
+            failFast: false,
+            suppressSkipped: true,
+            showSpecTiming: true
         },
 
         port: 9876,
         colors: true,
         logLevel: config.LOG_INFO,
         autoWatch: true,
-        browsers: ['Chrome'],
+        browsers: ['ChromeHeadless'],
         singleRun: false
     });
-
-    if (process.env.TRAVIS) {
-        config.set({
-            browsers: ['Chrome_travis_ci']
-        });
-
-        // Override base config
-        config.set({
-            singleRun: true,
-            autoWatch: false,
-            reporters: ['spec', 'coverage'],
-            specReporter: {
-                failFast: true
-            }
-        });
-    }
-}
+};

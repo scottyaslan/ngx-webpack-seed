@@ -13,3 +13,11 @@ coverage/
 
 # Webpack cache-loader directory
 .cache-loader/
+.cache-loader-coverage/
+
+*.min.js*
+*.min.css*
+index.html
+
+COMMITHASH
+VERSION

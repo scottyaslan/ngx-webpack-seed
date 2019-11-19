@@ -21,22 +21,23 @@ import {
     platformBrowserDynamicTesting
 } from '@angular/platform-browser-dynamic/testing';
 
-import {AppDemoDialog} from './app.demo-dialog.component';
 import {
     MatDialogRef,
     MAT_DIALOG_DATA
 } from '@angular/material';
+import {AppDemoDialog} from './app.demo-dialog.component';
 
-describe('app-demo-dialog component spec', function () {
-    var comp;
-    var fixture;
+describe('app-demo-dialog component spec', () => {
+    let comp;
+    let fixture;
 
-    beforeEach(async function (done) {
+    beforeEach(async (done) => {
         TestBed.resetTestEnvironment();
 
         TestBed.initTestEnvironment(
             BrowserDynamicTestingModule,
-            platformBrowserDynamicTesting());
+            platformBrowserDynamicTesting()
+        );
 
         TestBed.configureTestingModule({
             declarations: [
@@ -47,17 +48,17 @@ describe('app-demo-dialog component spec', function () {
                 { provide: MAT_DIALOG_DATA, useValue: [] }
             ]
         })
-        .compileComponents()
-        .then(function () {
-            fixture = TestBed.createComponent(AppDemoDialog);
-            fixture.detectChanges();
-            comp = fixture.componentInstance;
+            .compileComponents()
+            .then(() => {
+                fixture = TestBed.createComponent(AppDemoDialog);
+                fixture.detectChanges();
+                comp = fixture.componentInstance;
 
-            done();
-        });
+                done();
+            });
     });
 
-    it('should create component', function () {
+    it('should create component', () => {
         //assertions
         expect(comp).toBeDefined();
     });

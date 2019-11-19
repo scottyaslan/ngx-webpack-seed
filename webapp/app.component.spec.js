@@ -21,35 +21,37 @@ import {
     platformBrowserDynamicTesting
 } from '@angular/platform-browser-dynamic/testing';
 import {RouterModule} from '@angular/router';
-import {MatSidenavModule,MatToolbarModule} from '@angular/material';
+import { MatButtonModule, MatSidenavModule, MatToolbarModule } from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {APP_BASE_HREF} from '@angular/common';
 
+import { FdsDialogsModule } from '@nifi-fds/core';
 import {AppRoutes} from './app.routes';
 import {App} from './app.component';
 import {AppDemo} from './components/app-demo/app.demo.component';
 import {AppService} from './services/app.service';
-import * as FlowDesignSystemModule from '@nifi-fds/core/flow-design-system.module';
 
-describe('app component spec', function () {
-    var comp;
-    var fixture;
+describe('app component spec', () => {
+    let comp;
+    let fixture;
 
-    beforeEach(async function (done) {
+    const initTestBed = ({ providers } = { providers: [] }) => {
         TestBed.resetTestEnvironment();
 
         TestBed.initTestEnvironment(
             BrowserDynamicTestingModule,
-            platformBrowserDynamicTesting());
+            platformBrowserDynamicTesting()
+        );
 
-        TestBed.configureTestingModule({
+        const testBedConfigured = TestBed.configureTestingModule({
             imports: [
                 RouterModule,
                 MatSidenavModule,
                 MatToolbarModule,
+                MatButtonModule,
                 BrowserAnimationsModule,
                 AppRoutes,
-                FlowDesignSystemModule
+                FdsDialogsModule
             ],
             declarations: [
                 App,
@@ -57,20 +59,25 @@ describe('app component spec', function () {
             ],
             providers: [
                 AppService,
-                {provide: APP_BASE_HREF, useValue : '/' }
+                {provide: APP_BASE_HREF, useValue: '/' },
+                ...providers
             ]
-        })
-        .compileComponents()
-        .then(function () {
-            fixture = TestBed.createComponent(App);
-            fixture.detectChanges();
-            comp = fixture.componentInstance;
-
-            done();
         });
+        return testBedConfigured.compileComponents();
+    };
+
+    beforeEach((done) => {
+        initTestBed()
+            .then(() => {
+                fixture = TestBed.createComponent(App);
+                fixture.detectChanges();
+                comp = fixture.componentInstance;
+
+                done();
+            });
     });
 
-    it('should create component', function () {
+    it('should create component', () => {
         //assertions
         expect(comp).toBeDefined();
     });

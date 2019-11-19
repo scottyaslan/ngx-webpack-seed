@@ -15,23 +15,30 @@
  * limitations under the License.
  */
 
-/**
- * AppService constructor.
- *
- * @constructor
- */
-function AppService() {
-    // General
-    this.title = "Hello World";
-    this.inProgress = true;
-    this.perspective = '';
-};
+import {
+    Component, OnInit,
+    ViewChild
+} from '@angular/core';
+import { AppService } from 'services/app.service';
+import { FdsDialogService } from '@nifi-fds/core/dialogs/services/dialog.service';
 
-AppService.prototype = {
-    constructor: AppService
-};
+@Component({
+    selector: 'app',
+    templateUrl: './app.component.html'
+})
+export class App implements OnInit {
+    @ViewChild('sidenav', { static: true }) sidenav: any;
 
-AppService.parameters = [
-];
+    constructor(private appService: AppService, private dialogService: FdsDialogService) {}
 
-export { AppService };
+    ngOnInit(): void {
+        this.appService.sidenav = this.sidenav;
+    }
+
+    sayHello(): void {
+        this.dialogService.openConfirm({
+            message: 'Hello, World!',
+            acceptButton: 'Ok'
+        });
+    }
+}

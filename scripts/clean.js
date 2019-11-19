@@ -15,29 +15,7 @@
  * limitations under the License.
  */
 
-import { AfterViewChecked, Component } from '@angular/core';
-import { AppService } from 'services/app.service';
+const fse = require('fs-extra');
 
-@Component({
-    templateUrl: './app.demo.component.html'
-})
-export class AppDemo implements AfterViewChecked {
-    appService: AppService;
-
-    /**
-     * AppDemo constructor.
-     *
-     * @param appService            The app service module.
-     * @constructor
-     */
-    constructor(appService: AppService) {
-        this.appService = appService;
-    }
-
-    /**
-     * Respond after Angular checks the component's views and child views
-     */
-    ngAfterViewChecked() {
-        this.appService.inProgress = false;
-    }
-}
+// blow away the target folder and everything in it
+fse.removeSync('./target');

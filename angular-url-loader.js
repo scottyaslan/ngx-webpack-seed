@@ -20,7 +20,7 @@
  *
  *   templateUrl: './some-module.html'  ->  template: require('./some-module.html')
  */
-let templateUrlRegex = /templateUrl\s*:(\s*['"`](.*?)['"`]\s*)/gm;
+const templateUrlRegex = /templateUrl\s*:(\s*['"`](.*?)['"`]\s*)/gm;
 module.exports = function (source) {
     source = source
         .replace(templateUrlRegex, function(match, quote, url){

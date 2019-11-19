@@ -24,16 +24,17 @@ import {
 import {AppDemo} from './app.demo.component';
 import {AppService} from '../../services/app.service';
 
-describe('app-demo component spec', function () {
-    var comp;
-    var fixture;
+describe('app-demo component spec', () => {
+    let comp;
+    let fixture;
 
-    beforeEach(async function (done) {
+    beforeEach(async (done) => {
         TestBed.resetTestEnvironment();
 
         TestBed.initTestEnvironment(
             BrowserDynamicTestingModule,
-            platformBrowserDynamicTesting());
+            platformBrowserDynamicTesting()
+        );
 
         TestBed.configureTestingModule({
             declarations: [
@@ -43,17 +44,17 @@ describe('app-demo component spec', function () {
                 AppService
             ]
         })
-        .compileComponents()
-        .then(function () {
-            fixture = TestBed.createComponent(AppDemo);
-            fixture.detectChanges();
-            comp = fixture.componentInstance;
+            .compileComponents()
+            .then(() => {
+                fixture = TestBed.createComponent(AppDemo);
+                fixture.detectChanges();
+                comp = fixture.componentInstance;
 
-            done();
-        });
+                done();
+            });
     });
 
-    it('should create component', function () {
+    it('should create component', () => {
         //assertions
         expect(comp).toBeDefined();
     });
