@@ -21,7 +21,7 @@
     "build:webapp:bundle:development": "npm run webpack",
     "build:webapp:bundle:production": "npm run webpack:production",
     "clean:all": "node scripts/clean.js && node scripts/clean-dev.js",
-    "clean:install": "npm run clean-and-copy && cd ./target/frontend-working-directory && npm install && npm test && npm run build:webapp:bundle:production",
+    "clean:install": "npm run clean-and-copy && cd ./target/frontend-working-directory && npm install && npm run test:parallel && npm run build:webapp:bundle:production",
     "clean:install:skipTests": "npm run clean-and-copy && cd ./target/frontend-working-directory && npm install && npm run build:webapp:bundle:production",
     "dev:install": "node scripts/copy-files.js && cd ./target/frontend-working-directory && npm install && npm test && npm  run build:webapp:bundle:development",
     "dev:install:skipTests": "node scripts/copy-files.js && cd ./target/frontend-working-directory && npm install && npm run build:webapp:bundle:development",
