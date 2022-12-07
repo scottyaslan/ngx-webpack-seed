@@ -130,7 +130,7 @@
     "karma-parallel": "0.3.1",
     "karma-spec-reporter": "0.0.32",
     "karma-webpack": "4.0.2",
-    "lint-staged": "8.1.7",
+    "lint-staged": "13.1.0",
     "mini-css-extract-plugin": "0.6.0",
     "node-sass": "4.12.0",
     "null-loader": "3.0.0",
